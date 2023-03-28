@@ -12,6 +12,7 @@ module.exports = function flatten (obj, opts) {
     opts = { delimeter: opts }
   }
   defaults(opts, {
+    parseNonObject: false,
     delimeter: '.',
     dest: {}
   })
@@ -40,7 +41,7 @@ module.exports = function flatten (obj, opts) {
       : key
 
     // check if value is flattenable
-    if (Array.isArray(val) || isObject(val)) {
+    if (Array.isArray(val) || Object.prototype.toString.call(val) === '[object Object]') {
       // value is flattenable, continue flattenning
       flatten(val, {
         delimeter: opts.delimeter,
@@ -49,6 +50,15 @@ module.exports = function flatten (obj, opts) {
       })
     } else {
       // value is not flattenable, set flat key
+      if (opts.parseNonObject) {
+        if (isObject(val)) {
+          if (Reflect.has(val, 'toJSON')) {
+            val = val.toJSON()
+          } else {
+            val = val.toString()
+          }
+        }
+      }
       flat[keypath] = val
     }
 

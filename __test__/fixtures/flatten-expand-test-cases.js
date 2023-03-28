@@ -96,13 +96,19 @@ module.exports.common = [
   {
     full: [
       {
-        foo: { 'bar.qux': 100 }
+        foo: { 'bar.qux': 100 },
+        qux: [200, { baz: true, foo: new Date(2017, 0, 1) }]
       },
-      'hello'
+      'hello',
+      new Date(2017, 0, 1)
     ],
     flat: {
       '[0].foo["bar.qux"]': 100,
-      '[1]': 'hello'
+      '[0].qux[0]': 200,
+      '[0].qux[1].baz': true,
+      '[0].qux[1].foo': (new Date(2017, 0, 1)),
+      '[1]': 'hello',
+      '[2]': (new Date(2017, 0, 1))
     }
   },
 
