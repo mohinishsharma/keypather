@@ -97,7 +97,9 @@ module.exports.common = [
     full: [
       {
         foo: { 'bar.qux': 100 },
-        qux: [200, { baz: true, foo: new Date(2017, 0, 1) }]
+        qux: [200, { baz: true, foo: new Date(2017, 0, 1) }],
+        quux: [],
+        corge: { a: 1, b: {}, c: [] }
       },
       'hello',
       new Date(2017, 0, 1)
@@ -107,6 +109,10 @@ module.exports.common = [
       '[0].qux[0]': 200,
       '[0].qux[1].baz': true,
       '[0].qux[1].foo': (new Date(2017, 0, 1)),
+      '[0].quux': [],
+      '[0].corge.a': 1,
+      '[0].corge.b': {},
+      '[0].corge.c': [],
       '[1]': 'hello',
       '[2]': (new Date(2017, 0, 1))
     }
