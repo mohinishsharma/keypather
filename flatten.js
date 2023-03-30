@@ -19,6 +19,11 @@ module.exports = function flatten (obj, opts) {
 
   var isArray = Array.isArray(obj)
   var keys = Object.keys(obj)
+  if (keys.length === 0) {
+    // empty object, return empty object
+    opts.dest[opts.parentKeypath] = isArray ? [] : {}
+    return opts.dest
+  }
 
   return keys.reduce(function (flat, key) {
     var val = obj[key]
